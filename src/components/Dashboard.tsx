@@ -1,11 +1,23 @@
 import { useState, useEffect } from 'react'
-import { supabase, Student } from '../lib/supabase'
+import { supabase, Student, AttendanceRecord } from '../lib/supabase'
 import { useAuth } from '../contexts/AuthContext'
 import StudentForm from './StudentForm'
 import AttendanceView from './AttendanceView'
 
-export default function Dashboard() {
+interface StudentWithStats extends Student {
+  presentDays: number
+  absentDays: number
+}
+
+interface DashboardProps {
+  onNavigate: (page: 'dashboard' | 'students') => void
+}
+
+export default function Dashboard({ onNavigate }: DashboardProps) {
   const [students, setStudents] = useState<Student[]>([])
+  const [studentsWithStats, setStudentsWithStats] = useState<StudentWithStats[]>([])
+  const [todayPresent, setTodayPresent] = useState(0)
+  const [todayAbsent, setTodayAbsent] = useState(0)
   const [loading, setLoading] = useState(true)
   const [showForm, setShowForm] = useState(false)
   const [editingStudent, setEditingStudent] = useState<Student | null>(null)
