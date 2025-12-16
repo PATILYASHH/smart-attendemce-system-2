@@ -26,6 +26,8 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.87.3",
     "@vitejs/plugin-react": "^5.1.2",
+    "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.1",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "react-router-dom": "^7.10.1"

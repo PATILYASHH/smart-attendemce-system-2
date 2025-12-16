@@ -19,6 +19,9 @@ export interface AttendanceRecord {
   student_id: string
   date: string
   status: 'present' | 'absent'
+  penalty: number
+  is_excused: boolean
+  excuse_reason: string | null
   teacher_id: string
   created_at: string
 }

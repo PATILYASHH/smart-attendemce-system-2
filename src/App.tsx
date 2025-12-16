@@ -1,9 +1,14 @@
+import { useState } from 'react'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
 import Auth from './components/Auth'
 import Dashboard from './components/Dashboard'
+import Students from './components/Students'
+
+type Page = 'dashboard' | 'students'
 
 function AppContent() {
   const { user, loading } = useAuth()
+  const [currentPage, setCurrentPage] = useState<Page>('dashboard')
 
   if (loading) {
     return (
@@ -13,7 +18,19 @@ function AppContent() {
     )
   }
 
-  return user ? <Dashboard /> : <Auth />
+  if (!user) {
+    return <Auth />
+  }
+
+  const handleNavigate = (page: Page) => {
+    setCurrentPage(page)
+  }
+
+  return currentPage === 'dashboard' ? (
+    <Dashboard onNavigate={handleNavigate} />
+  ) : (
+    <Students onNavigate={handleNavigate} />
+  )
 }
 
 function App() {

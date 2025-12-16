@@ -18,6 +18,9 @@ CREATE TABLE attendance (
   student_id UUID NOT NULL REFERENCES students(id) ON DELETE CASCADE,
   date DATE NOT NULL,
   status TEXT NOT NULL CHECK (status IN ('present', 'absent')),
+  penalty DECIMAL(10, 2) DEFAULT 0,
+  is_excused BOOLEAN DEFAULT FALSE,
+  excuse_reason TEXT,
   teacher_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc', NOW()),
   UNIQUE(student_id, date)
